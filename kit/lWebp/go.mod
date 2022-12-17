@@ -1,4 +1,4 @@
-module lWebp
+module github.com/licsber/go/kit/lWebp
 
 go 1.19
 
