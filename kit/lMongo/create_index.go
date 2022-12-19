@@ -16,8 +16,15 @@ func CreateIndex(coll *mongo.Collection, keys bson.D) {
 	}
 }
 
-func CreateSimpleIndex(coll *mongo.Collection, key string) {
-	CreateIndex(coll, bson.D{
-		{key, 1},
-	})
+func CreateSimpleIndex(coll *mongo.Collection, keys []string) {
+	if len(keys) == 0 {
+		panic("try to create empty index.")
+	}
+
+	var d bson.D
+	for _, key := range keys {
+		d = append(d, bson.E{Key: key, Value: 1})
+	}
+
+	CreateIndex(coll, d)
 }

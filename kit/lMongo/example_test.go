@@ -12,7 +12,7 @@ import (
 
 var client *mongo.Client
 
-func init() {
+func Init() {
 	uri := os.Getenv("L_MONGO_URI")
 	c, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
@@ -23,6 +23,10 @@ func init() {
 }
 
 func TestInsertOne(t *testing.T) {
+	if client == nil {
+		Init()
+	}
+
 	coll := client.Database("main").Collection("test")
 	res, err := coll.InsertOne(context.TODO(), bson.M{
 		"hello": "world",
@@ -32,6 +36,10 @@ func TestInsertOne(t *testing.T) {
 }
 
 func TestFindOne(t *testing.T) {
+	if client == nil {
+		Init()
+	}
+
 	coll := client.Database("main").Collection("test")
 	var res bson.M
 	err := coll.FindOne(context.TODO(), bson.M{
@@ -49,6 +57,10 @@ func TestFindOne(t *testing.T) {
 }
 
 func TestUpdateOne(t *testing.T) {
+	if client == nil {
+		Init()
+	}
+
 	coll := client.Database("main").Collection("test")
 	res, err := coll.UpdateOne(
 		context.TODO(),
@@ -71,6 +83,10 @@ func TestUpdateOne(t *testing.T) {
 }
 
 func TestUpsert(t *testing.T) {
+	if client == nil {
+		Init()
+	}
+
 	coll := client.Database("main").Collection("test")
 	opts := options.Update().SetUpsert(true)
 	res, err := coll.UpdateOne(
