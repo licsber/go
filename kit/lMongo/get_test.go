@@ -6,6 +6,6 @@ import (
 )
 
 func TestGet(t *testing.T) {
-	db := Get()
-	fmt.Print(db)
+	db := Get(&Config{})
+	fmt.Println(db)
 }
