@@ -5,23 +5,18 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"os"
 )
 
-func Get(disableSSL bool) *s3.S3 {
-	endpoint := os.Getenv("L_S3_ENDPOINT")
-	region := os.Getenv("L_S3_REGION")
-	ak := os.Getenv("L_S3_ACCESS")
-	sk := os.Getenv("L_S3_SECRET")
-
-	cred := credentials.NewStaticCredentials(ak, sk, "")
+func Get(cfg *Config) *s3.S3 {
+	cfg.Must()
+	cred := credentials.NewStaticCredentials(cfg.AccessKey, cfg.SecretKey, "")
 
 	config := aws.NewConfig().
-		WithEndpoint(endpoint).
-		WithRegion(region).
+		WithEndpoint(cfg.Endpoint).
+		WithRegion(cfg.Region).
 		WithCredentials(cred).
 		WithS3ForcePathStyle(true).
-		WithDisableSSL(disableSSL)
+		WithDisableSSL(!cfg.EnableSSL)
 
 	return s3.New(session.Must(session.NewSession(config)))
 }
