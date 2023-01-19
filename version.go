@@ -1,5 +1,15 @@
 package _go
 
-import _ "github.com/licsber/go/lEnv/dotenv/autoload"
+import (
+	"fmt"
+	_ "github.com/licsber/go/lEnv/dotenv/autoload"
+	"os"
+)
 
-const VERSION = "v0.1.0"
+func init() {
+	if os.Getenv("LICSBER") == "" {
+		fmt.Println("LicsberLib " + VERSION)
+	}
+}
+
+const VERSION = "v0.1.2"
