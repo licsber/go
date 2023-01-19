@@ -2,7 +2,6 @@ package lMongo
 
 import (
 	"context"
-	"fmt"
 	"os"
 )
 
@@ -17,8 +16,6 @@ func (c *Config) GetURI() string {
 	}
 
 	c.URI = os.Getenv("L_MONGO_URI")
-	fmt.Println(c)
-	fmt.Println(os.Environ())
 	if c.URI == "" {
 		panic("lMongo need L_MONGO_URI env var.")
 	}
