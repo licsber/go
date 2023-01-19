@@ -1,8 +1,15 @@
 package lFile
 
-import "os"
+import (
+	"os"
+	"path/filepath"
+)
 
 func Save(p string, b []byte) error {
-	// 2022-12-12 给多点权限
-	return os.WriteFile(p, b, 0777)
+	err := os.MkdirAll(filepath.Dir(p), os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(p, b, os.ModePerm)
 }
