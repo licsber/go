@@ -7,11 +7,10 @@ import (
 )
 
 func init() {
+	_ = dotenv.Load()
 	home, err := os.UserHomeDir()
 	if err != nil {
-		// Without overload, load local .env first.
-		_ = dotenv.Load(".env", filepath.Join(home, ".env"))
-	} else {
-		_ = dotenv.Load()
+		// Without overload, load local .env first, then home.
+		_ = dotenv.Load(filepath.Join(home, ".env"))
 	}
 }
