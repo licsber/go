@@ -12,6 +12,7 @@ go install github.com/licsber/go/cmd/sct@latest
 ## Feature
 
 ```text
+0.3.0 cmd query-phone finish.
 0.2.4 auto load home dir .env file.
 0.2.1 lFile.Save() will create directory if not exist.
 ```
@@ -35,6 +36,8 @@ export L_WXS_APP_ID='WeChat SmallProgram APP_ID'
 export L_WXS_APP_SECRET='WeChat SmallProgram APP_SECRET'
 export L_WXS_TOKEN='WeChat SmallProgram Message TOKEN'
 export L_WXS_AES_KEY='WeChat SmallProgram Message AES_KEY'
+
+export L_PHONE_DAT_DIR='query-phone phone.dat dir'
 ```
 
 ```bash
