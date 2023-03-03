@@ -22,6 +22,10 @@ func DoHandler(resp *http.Response, err error) ([]byte, error) {
 		return io.ReadAll(resp.Body)
 	}
 
+	if resp.StatusCode == http.StatusUnauthorized {
+		return nil, ErrUnAuthorized
+	}
+
 	if resp.StatusCode == http.StatusForbidden {
 		return nil, ErrForbidden
 	}
