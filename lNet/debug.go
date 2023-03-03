@@ -1,12 +1,12 @@
 package lNet
 
 import (
+	"github.com/licsber/go/lFile"
 	"github.com/licsber/go/lJson"
-	"os"
 )
 
 func Debug(b []byte) error {
-	return os.WriteFile("debug.html", b, 0660)
+	return lFile.Save("debug.html", b)
 }
 
 func DebugJSON(b []byte) error {
