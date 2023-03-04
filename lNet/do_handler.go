@@ -18,27 +18,28 @@ func DoHandler(resp *http.Response, err error) ([]byte, error) {
 		}
 	}()
 
-	if resp.StatusCode == http.StatusOK {
+	switch resp.StatusCode {
+	case http.StatusOK:
 		return io.ReadAll(resp.Body)
-	}
-
-	if resp.StatusCode == http.StatusUnauthorized {
+	case http.StatusBadRequest:
+		return nil, ErrBadRequest
+	case http.StatusUnauthorized:
 		return nil, ErrUnAuthorized
-	}
-
-	if resp.StatusCode == http.StatusForbidden {
+	case http.StatusForbidden:
 		return nil, ErrForbidden
-	}
-
-	if resp.StatusCode == http.StatusNotFound {
+	case http.StatusNotFound:
 		return nil, ErrNotFound
-	}
-
-	if resp.StatusCode == http.StatusBadGateway {
+	case http.StatusUnprocessableEntity:
+		return nil, ErrUnprocessableEntity
+	case http.StatusInternalServerError:
+		return nil, ErrInternalServerError
+	case http.StatusBadGateway:
 		return nil, ErrBadGateway
+	default:
+		{
+			log.Println("Unknown: response status code.")
+			log.Println(resp)
+			return nil, ErrUnknown
+		}
 	}
-
-	log.Println("Unknown: response status code.")
-	log.Println(resp)
-	return nil, ErrUnknown
 }
