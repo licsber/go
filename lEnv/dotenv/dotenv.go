@@ -119,6 +119,8 @@ func Unmarshal(str string) (envMap map[string]string, err error) {
 //
 // If you want more fine-grained control over your command it's recommended
 // that you use `Load()` or `Read()` and the `os/exec` package yourself.
+//
+//goland:noinspection GoUnusedExportedFunction
 func Exec(filenames []string, cmd string, cmdArgs []string) error {
 	_ = Load(filenames...)
 
@@ -130,6 +132,8 @@ func Exec(filenames []string, cmd string, cmdArgs []string) error {
 }
 
 // Write serializes the given environment and writes it to a file.
+//
+//goland:noinspection GoUnusedExportedFunction
 func Write(envMap map[string]string, filename string) error {
 	content, err := Marshal(envMap)
 	if err != nil {
@@ -312,7 +316,7 @@ func parseValue(value string, envMap map[string]string) string {
 	return value
 }
 
-var expandVarRegex = regexp.MustCompile(`(\\)?(\$)(\()?\{?([A-Z0-9_]+)?\}?`)
+var expandVarRegex = regexp.MustCompile(`(\\)?(\$)(\()?\{?([A-Z0-9_]+)?}?`)
 
 func expandVariables(v string, m map[string]string) string {
 	return expandVarRegex.ReplaceAllStringFunc(v, func(s string) string {
