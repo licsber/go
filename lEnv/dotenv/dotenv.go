@@ -21,10 +21,6 @@ const doubleQuoteSpecialChars = "\\\n\r\"!$`"
 //
 // If you call Load without any args it will default to loading .env in the current path.
 //
-// You can otherwise tell it which files to load (there can be more than one) like:
-//
-//	godotenv.Load("fileone", "filetwo")
-//
 // It's important to note that it WILL NOT OVERRIDE an env variable that already exists - consider the .env file to set dev vars or sensible defaults.
 func Load(filenames ...string) (err error) {
 	filenames = filenamesOrDefault(filenames)
@@ -121,10 +117,10 @@ func Unmarshal(str string) (envMap map[string]string, err error) {
 //
 // Simply hooks up os.Stdin/err/out to the command and calls Run().
 //
-// If you want more fine grained control over your command it's recommended
+// If you want more fine-grained control over your command it's recommended
 // that you use `Load()` or `Read()` and the `os/exec` package yourself.
 func Exec(filenames []string, cmd string, cmdArgs []string) error {
-	Load(filenames...)
+	_ = Load(filenames...)
 
 	command := exec.Command(cmd, cmdArgs...)
 	command.Stdin = os.Stdin
@@ -143,12 +139,14 @@ func Write(envMap map[string]string, filename string) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 	_, err = file.WriteString(content + "\n")
 	if err != nil {
 		return err
 	}
-	file.Sync()
+	_ = file.Sync()
 	return err
 }
 
@@ -189,7 +187,7 @@ func loadFile(filename string, overload bool) error {
 
 	for key, value := range envMap {
 		if !currentEnv[key] || overload {
-			os.Setenv(key, value)
+			_ = os.Setenv(key, value)
 		}
 	}
 
@@ -201,7 +199,9 @@ func readFile(filename string) (envMap map[string]string, err error) {
 	if err != nil {
 		return
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 
 	return Parse(file)
 }
@@ -246,7 +246,7 @@ func parseLine(line string, envMap map[string]string) (key string, value string,
 	}
 
 	if len(splitString) != 2 {
-		err = errors.New("Can't separate key from value")
+		err = errors.New("cannot separate key from value")
 		return
 	}
 

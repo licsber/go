@@ -23,7 +23,7 @@ func loadEnvAndCompareValues(t *testing.T, loader func(files ...string) error, e
 	os.Clearenv()
 
 	for k, v := range presets {
-		os.Setenv(k, v)
+		_ = os.Setenv(k, v)
 	}
 
 	err := loader(envFileName)
@@ -57,14 +57,14 @@ func TestOverloadWithNoArgsOverloadsDotEnv(t *testing.T) {
 }
 
 func TestLoadFileNotFound(t *testing.T) {
-	err := Load("somefilethatwillneverexistever.env")
+	err := Load("some_file_that_will_never_exist_ever.env")
 	if err == nil {
 		t.Error("File wasn't found but Load didn't return an error")
 	}
 }
 
 func TestOverloadFileNotFound(t *testing.T) {
-	err := Overload("somefilethatwillneverexistever.env")
+	err := Overload("some_file_that_will_never_exist_ever.env")
 	if err == nil {
 		t.Error("File wasn't found but Overload didn't return an error")
 	}
@@ -273,7 +273,7 @@ func TestExpanding(t *testing.T) {
 
 func TestActualEnvVarsAreLeftAlone(t *testing.T) {
 	os.Clearenv()
-	os.Setenv("OPTION_A", "actualenv")
+	_ = os.Setenv("OPTION_A", "actualenv")
 	_ = Load("fixtures/plain.env")
 
 	if os.Getenv("OPTION_A") != "actualenv" {
