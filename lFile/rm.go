@@ -2,20 +2,17 @@ package lFile
 
 import (
 	"fmt"
-	"github.com/licsber/go/lErr"
 	"os"
 )
 
-func Rm(p string) {
+func Rm(p string) error {
 	fmt.Print("rm: ")
 	fmt.Println(p)
-	err := os.Remove(p)
-	lErr.PanicErr(err)
+	return os.Remove(p)
 }
 
-func RmDir(p string) {
+func RmDir(p string) error {
 	fmt.Print("rm: ")
 	fmt.Println(p)
-	err := os.Remove(p)
-	lErr.PanicErr(err)
+	return os.Remove(p)
 }
