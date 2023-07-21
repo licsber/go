@@ -1,5 +1,8 @@
 *.test
 
 debug/
+debug.json
+debug.html
+debug.xml
 
 go.sum
