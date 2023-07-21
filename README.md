@@ -2,7 +2,7 @@
 
 **以我之名.**
 
-Self Go Library.  -- refactor from licsber/licsber(python3).
+Self Go Library. -- refactor from licsber/licsber(python3).
 
 ```bash
 # Send FangTang Message, need L_SCT_KEY
@@ -18,6 +18,8 @@ go install github.com/licsber/go/cmd/sct@latest
 ```
 
 ## Environment
+
+use `lErr` package will autoload '.env' file in home dir.
 
 ```bash
 export L_MONGO_URI="MongoDB URI"
