@@ -30,7 +30,7 @@ func Merge(videoFilepath, audioFilepath, assFilepath string) {
 	}
 	FFMPEG(args)
 
-	audioWMVName := strings.Replace(filepath.Base(assFilepath), ".ass", ".wmv", 1)
+	audioWMVName := strings.Replace(filepath.Base(assFilepath), ".ass", ".aac", 1)
 	audioWMVPath := filepath.Join(filepath.Dir(assFilepath), audioWMVName)
 	args = []string{
 		"-y",
