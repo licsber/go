@@ -5,6 +5,7 @@
 Self Go Library. -- refactor from licsber/licsber(python3).
 
 ```bash
+go install github.com/licsber/go/cmd/bilibili-merge@latest
 # Send FangTang Message, need L_SCT_KEY
 go install github.com/licsber/go/cmd/sct@latest
 ```
@@ -12,6 +13,7 @@ go install github.com/licsber/go/cmd/sct@latest
 ## Feature
 
 ```text
+0.8.20230724 feat merge bilibili videos.
 0.3.0 cmd query-phone finish.
 0.2.4 auto load home dir .env file.
 0.2.1 lFile.Save() will create directory if not exist.
