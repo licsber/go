@@ -20,8 +20,10 @@ func CalHeadSha256(path string) []byte {
 	}()
 
 	buf := make([]byte, HeadSha256Size)
-	_, err = f.Read(buf)
-	lErr.PanicErr(err)
+	length, err := f.Read(buf)
+	if length != 0 {
+		lErr.PanicErr(err)
+	}
 
 	h := sha256.New()
 	h.Write(buf)

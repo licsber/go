@@ -18,8 +18,10 @@ func CalSha256(path string) []byte {
 	}()
 
 	h := sha256.New()
-	_, err = io.Copy(h, f)
-	lErr.PanicErr(err)
+	length, err := io.Copy(h, f)
+	if length != 0 {
+		lErr.PanicErr(err)
+	}
 
 	return h.Sum(nil)
 }

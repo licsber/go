@@ -83,6 +83,10 @@ func deDup(srcPath, cmpPath string) {
 	cmpSize2FilePaths := BuildFileSizeMap(cmpPath)
 
 	for size, srcPaths := range srcSize2FilePaths {
+		if size == 0 {
+			continue
+		}
+
 		if cmpPaths, ok := cmpSize2FilePaths[size]; ok {
 			deDupFiles(srcPaths, cmpPaths)
 		}
