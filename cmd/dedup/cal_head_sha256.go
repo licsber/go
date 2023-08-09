@@ -29,5 +29,5 @@ func CalHeadSha256(path string) []byte {
 }
 
 func CalHeadSha256Hex(path string) string {
-	return hex.EncodeToString(CalSha256(path))
+	return hex.EncodeToString(CalHeadSha256(path))
 }

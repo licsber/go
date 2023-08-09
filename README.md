@@ -16,7 +16,7 @@ go install github.com/licsber/go/cmd/sct@latest
 ## Feature
 
 ```text
-v0.9.20230803 feat dedup duplicated files.
+v0.9.20230809 feat dedup duplicated files.
 0.8.20230725 feat merge bilibili videos.
 0.3.0 cmd query-phone finish.
 0.2.4 auto load home dir .env file.
