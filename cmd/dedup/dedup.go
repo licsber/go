@@ -48,31 +48,14 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 			fmt.Print("DST: ")
 			fmt.Println(cmpPath)
 			if !*ForceFlag {
-				fmt.Print("RM: ")
+				fmt.Print("RM(DRY): ")
 				fmt.Println(cmpPath)
 				continue
 			}
 
-			fmt.Print("Delete?(y/n)")
-			deleteFlag := false
-
-			var in string
-			_, err := fmt.Scanln(&in)
-			if err != nil {
-				if err.Error() == "unexpected newline" {
-					deleteFlag = true
-				}
-			}
-
-			if "y" == in {
-				deleteFlag = true
-			}
-
-			if !deleteFlag {
-				continue
-			}
-
-			err = os.Remove(cmpPath)
+			fmt.Print("RM: ")
+			fmt.Println(cmpPath)
+			err := os.Remove(cmpPath)
 			lErr.PanicErr(err)
 		}
 	}
