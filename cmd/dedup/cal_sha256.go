@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"github.com/licsber/go/lErr"
 	"io"
 	"os"
@@ -21,4 +22,8 @@ func CalSha256(path string) []byte {
 	lErr.PanicErr(err)
 
 	return h.Sum(nil)
+}
+
+func CalSha256Hex(path string) string {
+	return hex.EncodeToString(CalSha256(path))
 }

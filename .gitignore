@@ -1,4 +1,5 @@
 *.test
+*.exe
 
 debug/
 debug.json
