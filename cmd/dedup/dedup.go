@@ -40,14 +40,20 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 
 		cmpSha256 := CalSha256Hex(cmpPath)
 		if srcSha256 == cmpSha256 {
+			fmt.Println()
 			fmt.Print("Found same sha256: ")
 			fmt.Println(srcSha256)
 			fmt.Print("SRC: ")
 			fmt.Println(srcPath)
 			fmt.Print("DST: ")
 			fmt.Println(cmpPath)
-			fmt.Print("Delete?(y/n)")
+			if !*ForceFlag {
+				fmt.Print("RM: ")
+				fmt.Println(cmpPath)
+				continue
+			}
 
+			fmt.Print("Delete?(y/n)")
 			deleteFlag := false
 
 			var in string
@@ -66,15 +72,8 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 				continue
 			}
 
-			if *DryRunFlag {
-				fmt.Print("RM: ")
-				fmt.Println(cmpPath)
-			} else {
-				err = os.Remove(cmpPath)
-				lErr.PanicErr(err)
-			}
-
-			fmt.Println()
+			err = os.Remove(cmpPath)
+			lErr.PanicErr(err)
 		}
 	}
 }
@@ -82,8 +81,6 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 func deDup(srcPath, cmpPath string) {
 	srcSize2FilePaths := BuildFileSizeMap(srcPath)
 	cmpSize2FilePaths := BuildFileSizeMap(cmpPath)
-
-	srcSize2FilePaths[0] = []string{"123"}
 
 	for size, srcPaths := range srcSize2FilePaths {
 		if cmpPaths, ok := cmpSize2FilePaths[size]; ok {

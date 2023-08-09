@@ -4,4 +4,4 @@ import (
 	_ "github.com/licsber/go/lEnv/dotenv/autoload"
 )
 
-const VERSION = "v0.9.20230809"
+const VERSION = "v0.9.20230810"

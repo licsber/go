@@ -4,7 +4,7 @@ import (
 	"flag"
 )
 
-var DryRunFlag = flag.Bool("n", false, "DryRun")
+var ForceFlag = flag.Bool("f", false, "Force(no prompt)")
 
 func main() {
 	flag.Parse()
