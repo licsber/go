@@ -10,7 +10,8 @@ import (
 
 var Path2Sha256 = make(map[string]string)
 
-func deDupFile(srcPath, cmpPath string) {
+// 返回文件是否已被删除 避免二次Remove
+func deDupFile(srcPath, cmpPath string) bool {
 	// 从缓存里拿源文件Hash 拿不到就计算后放到缓存
 	srcSha256, ok := Path2Sha256[srcPath]
 	if !ok {
@@ -30,14 +31,17 @@ func deDupFile(srcPath, cmpPath string) {
 		if !*ForceFlag {
 			fmt.Print("RM(DRY): ")
 			fmt.Println(cmpPath)
-			return
+			return false
 		}
 
 		fmt.Print("RM: ")
 		fmt.Println(cmpPath)
 		err := os.Remove(cmpPath)
 		lErr.PanicErr(err)
+		return true
 	}
+
+	return false
 }
 
 func deDupFiles(srcPaths, cmpPaths []string) {
@@ -65,8 +69,12 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 			continue
 		}
 
+	loop:
 		for _, srcPath := range possiblePaths {
-			deDupFile(srcPath, cmpPath)
+			rmFlag := deDupFile(srcPath, cmpPath)
+			if rmFlag {
+				continue loop
+			}
 		}
 	}
 }
