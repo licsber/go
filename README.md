@@ -16,7 +16,7 @@ go install github.com/licsber/go/cmd/sct@latest
 ## Feature
 
 ```text
-v0.11.20230814 fix bilibili-merge for old videos.
+v0.11.20230815 fix bilibili-merge for old videos.
 v0.11.20230809 feat dedup duplicated files.
 0.8.20230725 feat merge bilibili videos.
 0.3.0 cmd query-phone finish.

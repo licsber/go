@@ -55,6 +55,7 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 		srcHeadHashes2PossiblePaths[headSha256] = append(srcHeadHashes2PossiblePaths[headSha256], path)
 	}
 
+loop:
 	for _, cmpPath := range cmpPaths {
 		// 计算所有目标文件的头Hash
 		headSha256 := CalHeadSha256Hex(cmpPath)
@@ -69,7 +70,6 @@ func deDupFiles(srcPaths, cmpPaths []string) {
 			continue
 		}
 
-	loop:
 		for _, srcPath := range possiblePaths {
 			rmFlag := deDupFile(srcPath, cmpPath)
 			if rmFlag {
