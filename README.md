@@ -53,4 +53,6 @@ export L_PHONE_DAT_DIR='query-phone phone.dat dir'
 go env -w GOPROXY=https://proxy.golang.com.cn,direct
 go env -w GOPRIVATE=git.licsber.site
 git config --global url."ssh://git@git.licsber.site/".insteadOf "https://git.licsber.site/"
+
+$env:GOOS = "linux"
 ```
