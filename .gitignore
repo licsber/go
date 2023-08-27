@@ -1,6 +1,8 @@
 *.test
 *.exe
 
+sh/linux/
+
 debug/
 debug.json
 debug.html
